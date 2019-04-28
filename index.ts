@@ -1,4 +1,4 @@
-class Symbol {
+export class Symbol {
     value: string;
 
     constructor(value: string) {
@@ -6,14 +6,14 @@ class Symbol {
     }
 }
 
-type StringSymbol = string | Symbol;
+type ConnectiveUnion = Connective | Symbol | string;
 
-class Connective {
+export class Connective {
     arity: number;
-    args: Symbol[] = [];
+    args: (Connective | Symbol)[] = [];
 
-    constructor(...args: (StringSymbol)[]) {
-        args.forEach((arg: StringSymbol) => {
+    constructor(...args: (ConnectiveUnion)[]) {
+        args.forEach((arg: ConnectiveUnion) => {
             if (typeof arg === 'string') {
                 arg = new Symbol(arg);
             }
@@ -23,32 +23,32 @@ class Connective {
     }
 }
 
-class Not extends Connective {
-    constructor(arg: StringSymbol) {
+export class Not extends Connective {
+    constructor(arg: ConnectiveUnion) {
         super(arg);
     }
 }
 
-class And extends Connective {
-    constructor(arg1: StringSymbol, arg2: StringSymbol) {
+export class And extends Connective {
+    constructor(arg1: ConnectiveUnion, arg2: ConnectiveUnion) {
         super(arg1, arg2);
     }
 }
 
-class Or extends Connective {
-    constructor(arg1: StringSymbol, arg2: StringSymbol) {
+export class Or extends Connective {
+    constructor(arg1: ConnectiveUnion, arg2: ConnectiveUnion) {
         super(arg1, arg2);
     }
 }
 
-class If extends Connective {
-    constructor(arg1: StringSymbol, arg2: StringSymbol) {
+export class If extends Connective {
+    constructor(arg1: ConnectiveUnion, arg2: ConnectiveUnion) {
         super(arg1, arg2);
     }
 }
 
-class Iff extends Connective {
-    constructor(arg1: StringSymbol, arg2: StringSymbol) {
+export class Iff extends Connective {
+    constructor(arg1: ConnectiveUnion, arg2: ConnectiveUnion) {
         super(arg1, arg2);
     }
 }
