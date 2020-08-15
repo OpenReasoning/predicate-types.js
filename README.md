@@ -9,3 +9,24 @@
 ```bash
 npm install @openreasoning/predicate-types
 ```
+
+## Usage
+
+```js
+// cjs
+const getTypes = require('@openreasoning/predicate-types');
+
+// esm
+import getTypes from '@openReasoning/predicate-types';
+
+const node;
+
+// fill in value of node of structure:
+/*
+{
+    "value": string,
+    "children": Node[]
+}
+*/
+const type = getTypes(node);
+```

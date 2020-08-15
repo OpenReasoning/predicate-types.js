@@ -1,58 +1,48 @@
-export class Atomic {
+import { Atomic, Not, And, Or, If, Iff, Connective } from './types';
+
+interface Node {
   value: string;
-
-  constructor(value: string) {
-    this.value = value;
-  }
-
-  toString(): string {
-    return this.value;
-  }
+  children: Node[];
 }
 
-type ConnectiveUnion = Connective | Atomic | string;
-
-export class Connective {
-  arity: number;
-  args: (Connective | Atomic)[] = [];
-
-  constructor(...args: (ConnectiveUnion)[]) {
-    args.forEach((arg: ConnectiveUnion) => {
-      if (typeof arg === 'string') {
-        arg = new Atomic(arg);
-      }
-      this.args.push(arg);
-    });
-    this.arity = this.args.length;
+function getTypes(node: Node): Connective | Atomic {
+  if (node.children.length === 0) {
+    return new Atomic(node.value);
   }
+
+  const value = node.value.toLowerCase();
+
+  if (value === 'not') {
+    if (node.children.length !== 1) {
+      throw new Error(`invalid number of children, expected 1, got ${node.children.length}.`);
+    }
+    return new Not(node.children[0]);
+  }
+
+  if (node.children.length !== 2) {
+    throw new Error(`invalid number of children. expected 2, got ${node.children.length}.`);
+  }
+
+  let klass;
+  if (value === 'and') {
+    klass = And;
+    return new And(node.children[0], node.children[1]);
+  }
+  else if (value === 'or') {
+    klass = Or;
+    return new Or(node.children[0], node.children[1]);
+  }
+  else if (value === 'if') {
+    klass = If;
+  }
+  else if (value === 'iff') {
+    klass = Iff;
+  }
+  else {
+    throw new Error(`invalid connective. got ${value}.`);
+  }
+
+  return new klass(node.children[0], node.children[1]);
 }
 
-export class Not extends Connective {
-  constructor(arg: ConnectiveUnion) {
-    super(arg);
-  }
-}
-
-export class And extends Connective {
-  constructor(arg1: ConnectiveUnion, arg2: ConnectiveUnion) {
-    super(arg1, arg2);
-  }
-}
-
-export class Or extends Connective {
-  constructor(arg1: ConnectiveUnion, arg2: ConnectiveUnion) {
-    super(arg1, arg2);
-  }
-}
-
-export class If extends Connective {
-  constructor(arg1: ConnectiveUnion, arg2: ConnectiveUnion) {
-    super(arg1, arg2);
-  }
-}
-
-export class Iff extends Connective {
-  constructor(arg1: ConnectiveUnion, arg2: ConnectiveUnion) {
-    super(arg1, arg2);
-  }
-}
+export = getTypes;

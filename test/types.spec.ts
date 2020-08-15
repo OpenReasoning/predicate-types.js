@@ -1,4 +1,4 @@
-import { Atomic } from "../src";
+import { Atomic } from "../src/types";
 
 describe('Atomic', () => {
   it('equal', () => {
