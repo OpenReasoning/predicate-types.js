@@ -9,7 +9,9 @@
     "watch": "tsc -w",
     "test": "jest",
     "lint": "eslint \"src/**/*.ts\" && eslint \"test/**/*.ts\"",
-    "lint:fix": "npm run lint -- --fix"
+    "lint:fix": "npm run lint -- --fix",
+    "tsc-publish": "tsc-publish",
+    "prepublishOnly": "echo \"Do not run publish directly, run tsc-publish\" && exit 1"
   },
   "repository": {
     "type": "git",
