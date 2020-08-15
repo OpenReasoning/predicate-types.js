@@ -1,18 +1,24 @@
 {
-  "name": "@openreasoning/fol-types",
-  "version": "0.0.2",
-  "description": "Types of First-Order Logic formula",
+  "name": "@openreasoning/predicate-types",
+  "version": "0.1.0",
+  "description": "Types of Predicate Logic",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "tsc",
+    "watch": "tsc -w",
+    "test": "jest",
+    "lint": "eslint \"src/**/*.ts\" && eslint \"test/**/*.ts\"",
+    "lint:fix": "npm run lint -- --fix"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/OpenReasoning/fol-types-js.git"
+    "url": "git+https://github.com/OpenReasoning/predicate-types-js.git"
   },
   "keywords": [
-    "fol"
+    "logic",
+    "reasoning",
+    "formal logic"
   ],
   "author": "Matthew Peveler <matt.peveler@gmail.com>",
   "license": "MIT",
@@ -21,6 +27,15 @@
   },
   "homepage": "https://github.com/OpenReasoning/fol-types-js#readme",
   "devDependencies": {
-    "typescript": "^3.4.5"
+    "@types/jest": "^26.0.10",
+    "@typescript-eslint/eslint-plugin": "^3.9.0",
+    "@typescript-eslint/parser": "^3.9.0",
+    "eslint": "^7.7.0",
+    "jest": "^26.4.0",
+    "ts-jest": "^26.2.0",
+    "typescript": "^3.9.7"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }
